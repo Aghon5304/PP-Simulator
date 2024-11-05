@@ -26,4 +26,8 @@ public class Elf : Creature
         Agility = agility;
     }
     public Elf() : base() { }
+    public override string Info
+    {
+        get { return $"{Name} [{Level}][{Agility}]"; }
+    }
 }

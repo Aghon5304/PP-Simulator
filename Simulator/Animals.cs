@@ -10,12 +10,7 @@ public class Animals
         get => _description;
         init
         {
-            value = value.Trim();
-            if (value.Length > 15)
-                value = value[0..15].Trim();
-            if (value.Length < 3)
-                value = value.PadRight(3, '#');
-            _description = char.ToUpper(value[0]) + value[1..];
+            _description = Walidatory.Shortener(value, 3, 15, '#');
         }
     }
     public uint Size { get; set; }
@@ -23,10 +18,13 @@ public class Animals
     public Animals(string description = "Unknown", uint size = 3)
     {
         Description = description;
-        if (size < 1)
-            size = 1;
-        Size = size;
+        Size = size > 1 ? size : 1;
     }
 
-    public string Info => $"{Description} ({Size})";
+    public virtual string Info => $"{Description} <{Size}>";
+    public override string? ToString()
+    {
+        return $"{GetType().Name.ToUpper()}: {Info}";
+    }
+
 }
