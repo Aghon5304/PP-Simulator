@@ -30,4 +30,8 @@ public class Orc : Creature
         Rage = rage;
     }
     public Orc() : base() { }
+    public override string Info
+    {
+        get {return $"{Name} [{Level}][{Rage}]"; }
+    }
 }

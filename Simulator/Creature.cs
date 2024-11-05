@@ -1,4 +1,7 @@
-﻿namespace Simulator;
+﻿using System.Reflection.Emit;
+using System.Xml.Linq;
+
+namespace Simulator;
 
 public abstract class Creature
 {
@@ -12,13 +15,7 @@ public abstract class Creature
 
         init
         {
-            value = value.Trim();
-            if (value.Length > 25)
-                value = value[0..25];
-            value = value.Trim();
-            if (value.Length < 3)
-                value = value.PadRight(3, '#');
-            _name = char.ToUpper(value[0]) + value[1..];
+            _name = Walidatory.Shortener(value, 3, 25, '#');
         }
     }
     public abstract int Power { get; }
@@ -26,24 +23,13 @@ public abstract class Creature
 
     public Creature(string name = "Unknown", int level = 1)
     {
-        name = name.Trim();
-        if (name.Length > 25)
-            name = name[0..25];
-        name = name.Trim();
-        if (name.Length < 3)
-            name= name.PadRight(3, '#');
-        _name = char.ToUpper(name[0]) + name[1..];
-        if (level < 1)
-            level = 1;
-        if (level > 10)
-            Level = 10;
-        Level = level;
+        _name = Walidatory.Shortener(name, 3, 25, '#');
+        Level = Walidatory.Limiter(level, 1, 10);
     }
 
     public abstract void SayHi();
 
-    public string Info => $"{Name} ({Level})";
-
+    public abstract string Info { get; }
     public void Upgrade()
     {
         if (Level < 10)
@@ -63,5 +49,9 @@ public abstract class Creature
     public void Go(string directions)
     {
         Go(DirectionParser.Parse(directions));
+    }
+    public override string? ToString()
+    {
+        return $"{GetType().Name.ToUpper()}: {Info}";
     }
 }
