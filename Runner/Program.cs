@@ -1,9 +1,8 @@
-﻿using Simulator;
-using Simulator.Maps;
-using System.Diagnostics;
+﻿using Simulator.Maps;
 using static Simulator.Directions;
+using Simulator;
 
-class Program
+internal class Program
 {
     static void Main()
     {
@@ -39,7 +38,7 @@ class Program
     {
         var map = new SmallSquareMap(10);
         Point p = new(1, 1);
-        Console.WriteLine($"Punkt :{p.ToString()}");
+        Console.WriteLine($"Punkt :{p}");
         Console.WriteLine(map.Next(p, Direction.Up).ToString());
         Console.WriteLine(map.Next(p, Direction.Right).ToString());
         Console.WriteLine(map.Next(p, Direction.Down).ToString());

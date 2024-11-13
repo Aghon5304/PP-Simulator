@@ -4,7 +4,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace Simulator
 {
-    internal class Rectangle
+    public class Rectangle
     {
 
         public int X1 { get; }

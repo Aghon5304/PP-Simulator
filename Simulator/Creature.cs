@@ -1,11 +1,12 @@
 ﻿using System.Reflection.Emit;
 using System.Xml.Linq;
+using static Simulator.Directions;
 
 namespace Simulator;
 
-public abstract class Creature
+public abstract class Creature(string name = "Unknown", int level = 1)
 {
-    private string _name;
+    private string _name = Walidatory.Shortener(name, 3, 25, '#');
     public string Name
     {
         get
@@ -19,15 +20,9 @@ public abstract class Creature
         }
     }
     public abstract int Power { get; }
-    public int Level { get; set; }
+    public int Level { get; set; } = Walidatory.Limiter(level, 1, 10);
 
-    public Creature(string name = "Unknown", int level = 1)
-    {
-        _name = Walidatory.Shortener(name, 3, 25, '#');
-        Level = Walidatory.Limiter(level, 1, 10);
-    }
-
-    public abstract void SayHi();
+    public abstract string Greeting();
 
     public abstract string Info { get; }
     public void Upgrade()
@@ -35,18 +30,17 @@ public abstract class Creature
         if (Level < 10)
             Level++;
     }
-    public void Go(Directions.Direction Direction)
+    public static string Go(Directions.Direction Direction) => $"{Direction.ToString().ToLower()}.";
+    public static string[] Go(Directions.Direction[] directions)
     {
-        Console.WriteLine($"{Name} goes {Direction}.");
-    }
-    public void Go(Directions.Direction[] directions)
-    {
-        foreach(Directions.Direction x in directions)
+        var result = new string[directions.Length];
+        for(int x=0;x< directions.Length;x++)
         {
-            Go(x);
+            result[x] = Go(directions[x]);
         }
+        return result;
     }
-    public void Go(string directions)
+    public static void Go(string directions)
     {
         Go(DirectionParser.Parse(directions));
     }

@@ -13,7 +13,7 @@ public class SmallSquareMap : Map
     }
     public override bool Exist(Point p)
     {
-        return p.X < 0 || p.Y < 0 || p.X >= Size || p.Y >= Size ? true : false; 
+        return p.X < 0 || p.Y < 0 || p.X >= Size || p.Y >= Size;
     }
 
     public override Point Next(Point p, Directions.Direction d)
