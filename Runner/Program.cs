@@ -8,7 +8,7 @@ internal class Program
     {
         var v = new SmallSquareMap(5);
         var p = new Point(1, 0);
-        Console.WriteLine( v.Exist(p));
+        Console.WriteLine( v.NextDiagonal(p,Direction.Down));
         Lab5a();
         Lab5b();
     }
