@@ -13,12 +13,12 @@ public class SmallSquareMap : Map
     }
     public override bool Exist(Point p)
     {
-        return p.X < 0 || p.Y < 0 || p.X >= Size || p.Y >= Size;
+        return!( p.X < 0 || p.Y < 0 || p.X >= Size || p.Y >= Size);
     }
 
     public override Point Next(Point p, Directions.Direction d)
     {
-        if (!Exist(p.Next(d)))
+        if (Exist(p.Next(d)))
         {
             return p.Next(d);
         }
@@ -30,7 +30,7 @@ public class SmallSquareMap : Map
 
     public override Point NextDiagonal(Point p, Directions.Direction d)
     {
-        if (!Exist(p.NextDiagonal(d)))
+        if (Exist(p.NextDiagonal(d)))
         {
             return p.NextDiagonal(d);
         }

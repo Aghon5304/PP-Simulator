@@ -6,6 +6,9 @@ internal class Program
 {
     static void Main()
     {
+        var v = new SmallSquareMap(5);
+        var p = new Point(1, 0);
+        Console.WriteLine( v.Exist(p));
         Lab5a();
         Lab5b();
     }
