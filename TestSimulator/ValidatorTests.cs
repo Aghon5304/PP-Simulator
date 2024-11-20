@@ -14,6 +14,7 @@ namespace TestSimulator
         [Theory]
         [InlineData("ala", 4, 5, '#', "Ala#")]
         [InlineData("Ala ma kota", 4, 5, '#',"Ala m")]
+        [InlineData("Ala              ma                                kota", 4, 5, '#', "Ala#")]
         public void Shortener_ShouldReturnMinAndMaxValue(string value, int min, int max,char placeholder, string expected)
         {
             Assert.Equal(expected, Walidatory.Shortener(value, min, max,placeholder));
