@@ -18,6 +18,15 @@ public abstract class Map
     public int SizeX { get; }
     public int SizeY { get; }
 
+    public abstract void Add(Creature creature, Point position);
+    public abstract void Remove(Creature creature, Point position);
+    public virtual void Move(Creature creature, Point point)
+    {
+        Remove(creature, creature.Position);
+        Add(creature, point);
+    }
+    public abstract List<Creature>? At(int x, int y);
+
     /// <summary>
     /// Check if give point belongs to the map.
     /// </summary>

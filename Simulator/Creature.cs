@@ -1,11 +1,21 @@
-﻿using System.Reflection.Emit;
-using System.Xml.Linq;
-using static Simulator.Directions;
+﻿using static Simulator.Directions;
+using Simulator.Maps;
 
 namespace Simulator;
 
 public abstract class Creature(string name = "Unknown", int level = 1)
 {
+    public Map? Map { get; private set; }
+    public Point Position { get; private set; }
+    public void InitMapAndPosition(Map map, Point position)
+    {
+        if (Map ==null)
+        {
+
+        }
+    }
+
+    //znajduje się na mapie w danym miejscu
     private string _name = Walidatory.Shortener(name, 3, 25, '#');
     public string Name
     {
@@ -30,7 +40,14 @@ public abstract class Creature(string name = "Unknown", int level = 1)
         if (Level < 10)
             Level++;
     }
-    public static string Go(Directions.Direction Direction) => $"{Direction.ToString().ToLower()}.";
+    public static string Go(Directions.Direction Direction)
+    {
+        //zgodnie z regułami mapy
+
+        return $"{Direction.ToString().ToLower()}.";
+    }
+
+    //out
     public static string[] Go(Directions.Direction[] directions)
     {
         var result = new string[directions.Length];
@@ -40,6 +57,7 @@ public abstract class Creature(string name = "Unknown", int level = 1)
         }
         return result;
     }
+    // out 
     public static void Go(string directions)
     {
         Go(DirectionParser.Parse(directions));
