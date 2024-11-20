@@ -1,4 +1,5 @@
-﻿namespace Simulator.Maps;
+﻿
+namespace Simulator.Maps;
 
 public class SmallSquareMap(int size) : SmallMap(size, size)
 {
@@ -24,5 +25,10 @@ public class SmallSquareMap(int size) : SmallMap(size, size)
         {
             return p;
         }
+    }
+
+    public override void Remove(Creature creature, Point position)
+    {
+        throw new NotImplementedException();
     }
 }
