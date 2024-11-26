@@ -47,7 +47,10 @@ public abstract class Creature(string name = "Unknown", int level = 1)
     }
     public void Go(Directions.Direction Direction)
     {
-        if(Map != null)
+        if (Map != null)
+        {
             Map.Move(this, Map.Next(Position, Direction));
+            Position = Map.Next(Position, Direction);
+        }
     }
 }
