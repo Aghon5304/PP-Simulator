@@ -41,11 +41,12 @@ public class Simulation
     {
         get
         {
-            return Creatures[_currentTurn];
+            return Creatures[_currentCreature];
         }
     }
 
-    private int _currentTurn { get; set; } = 0;
+    private int _currentMove { get; set; } = 0;
+    private int _currentCreature { get; set; } = 0;
 
     /// <summary>
     /// Lowercase name of direction which will be used in current turn.
@@ -54,10 +55,10 @@ public class Simulation
     {
         get
         {
-            return Moves[_currentTurn].ToString().ToLower();
+            return Moves[_currentMove].ToString().ToLower();
         }
     }
-
+    private Creature _temporaryCreature;
     /// <summary>
     /// Simulation constructor.
     /// Throw errors:
@@ -87,7 +88,9 @@ public class Simulation
         }
         for (int i = 0; i < creatures.Count; i++)
         {
-            creatures[i].InitMapAndPosition(map, positions[i]);
+            _temporaryCreature = Creatures[i];
+            _temporaryCreature.InitMapAndPosition(map, Positions[i]);
+            Creatures[i] = _temporaryCreature;
         }
         Moves = moves;
         MovesList = DirectionParser.Parse(moves);
@@ -99,12 +102,24 @@ public class Simulation
     /// </summary>
     public void Turn()
     {
-        Creatures[_currentTurn].Go(MovesList[_currentTurn]);
-
-        _currentTurn++;
-        if (_currentTurn >= Creatures.Count)
+        if (Finished)
         {
             throw new Exception("Simulation is finished");
+        }
+        else
+        {
+            Creatures[_currentCreature].Go(MovesList[_currentMove]);
+
+            _currentCreature++;
+            _currentMove++;
+            if (_currentMove >= MovesList.Length)
+            {
+                Finished = true;
+            }
+            if (_currentCreature >= Creatures.Count)
+            {
+                _currentCreature = 0;
+            }
         }
     }
 }

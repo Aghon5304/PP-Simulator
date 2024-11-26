@@ -9,7 +9,7 @@ public abstract class Creature(string name = "Unknown", int level = 1)
     public Point Position { get; private set; }
     public void InitMapAndPosition(Map map, Point position)
     {
-        if (Map == null)
+        if (map == null)
         {
             throw new ArgumentNullException("Map is null");
         }
@@ -17,6 +17,7 @@ public abstract class Creature(string name = "Unknown", int level = 1)
         {
             Map = map;
             Map.Add(this, position);
+            Position = position;
         }
     }
 

@@ -34,6 +34,10 @@ public abstract class SmallMap : Map
         }
         else
         {
+            if (_fields[position.X, position.Y] is null)
+            {
+                _fields[position.X, position.Y] = new List<Creature>();
+            }    
             _fields[position.X, position.Y].Add(creature);
         }
     }
@@ -47,14 +51,24 @@ public abstract class SmallMap : Map
         {
             throw new ArgumentOutOfRangeException("Position is out of bounds");
         }
-        else if (_fields[position.X, position.Y] == null || !_fields[position.X, position.Y].Contains(creature))
+        else if (_fields[position.X, position.Y] == null)
         {
-            throw new ArgumentNullException("Position is empty or does not contain desired creature");
+            throw new ArgumentNullException("Position is empty ");
+        }
+        else if (!_fields[position.X, position.Y].Contains(creature))
+        {
+            throw new ArgumentException("No desired creature at position");
         }
         else
         {
-            _fields[position.X, position.Y].Remove(creature);
+            if (_fields[position.X, position.Y].Count == 1)
+            {
+                _fields[position.X, position.Y] = null;
+            }
+            else
+            {
+                _fields[position.X, position.Y].Remove(creature);
+            }
         }
     }
-
 }
