@@ -9,9 +9,14 @@ public abstract class Creature(string name = "Unknown", int level = 1)
     public Point Position { get; private set; }
     public void InitMapAndPosition(Map map, Point position)
     {
-        if (Map ==null)
+        if (Map == null)
         {
-
+            throw new ArgumentNullException("Map is null");
+        }
+        else
+        {
+            Map = map;
+            Map.Add(this, position);
         }
     }
 
@@ -40,30 +45,9 @@ public abstract class Creature(string name = "Unknown", int level = 1)
         if (Level < 10)
             Level++;
     }
-    public static string Go(Directions.Direction Direction)
+    public void Go(Directions.Direction Direction)
     {
-        //zgodnie z regułami mapy
-
-        return $"{Direction.ToString().ToLower()}.";
-    }
-
-    //out
-    public static string[] Go(Directions.Direction[] directions)
-    {
-        var result = new string[directions.Length];
-        for(int x=0;x< directions.Length;x++)
-        {
-            result[x] = Go(directions[x]);
-        }
-        return result;
-    }
-    // out 
-    public static void Go(string directions)
-    {
-        Go(DirectionParser.Parse(directions));
-    }
-    public override string? ToString()
-    {
-        return $"{GetType().Name.ToUpper()}: {Info}";
+        if(Map != null)
+            Map.Move(this, Map.Next(Position, Direction));
     }
 }
