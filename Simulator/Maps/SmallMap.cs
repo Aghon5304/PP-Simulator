@@ -6,6 +6,7 @@ public abstract class SmallMap : Map
 {
 
     public List<Creature>?[,] _fields;
+
     protected SmallMap(int sizeX, int sizeY) : base(sizeX, sizeY)
     {
         if (sizeX > 20) throw new ArgumentOutOfRangeException(nameof(sizeX), "Too wide");
@@ -54,7 +55,6 @@ public abstract class SmallMap : Map
         {
             _fields[position.X, position.Y].Remove(creature);
         }
-
     }
 
 }

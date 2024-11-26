@@ -17,7 +17,6 @@ public abstract class Creature(string name = "Unknown", int level = 1)
         {
             Map = map;
             Map.Add(this, position);
-            Position = position;
         }
     }
 
