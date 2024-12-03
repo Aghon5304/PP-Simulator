@@ -1,9 +1,12 @@
-﻿namespace Simulator;
+﻿using System.Linq.Expressions;
+
+namespace Simulator;
 
 public class Elf : Creature
 {
     private int _agility;
     private int _singCount = 0;
+    public override char Symbol { get; init; } = 'E';
     public override int Power => (8 * Level) + 2 * Agility;
     public int Agility
     {
@@ -28,4 +31,5 @@ public class Elf : Creature
     {
         get { return $"{Name} [{Level}][{Agility}]"; }
     }
+    
 }

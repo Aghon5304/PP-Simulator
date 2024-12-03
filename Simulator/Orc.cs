@@ -6,6 +6,7 @@ public class Orc : Creature
 {
     private int _rage;
     private int _rageCount;
+    public override char Symbol { get; init; } = 'O';
     public override int Power => (7 * Level) + 3 * Rage;
     public int Rage
     {

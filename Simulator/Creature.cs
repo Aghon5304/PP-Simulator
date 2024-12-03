@@ -3,7 +3,7 @@ using Simulator.Maps;
 
 namespace Simulator;
 
-public abstract class Creature(string name = "Unknown", int level = 1): IMappable
+public abstract class Creature(string name = "Unknown", int level = 1) : IMappable
 {
     public Map? Map { get; private set; }
     public Point Position { get; private set; }
@@ -41,6 +41,8 @@ public abstract class Creature(string name = "Unknown", int level = 1): IMappabl
     public abstract string Greeting();
 
     public abstract string Info { get; }
+    public virtual char Symbol { get; init; } = 'C';
+
     public void Upgrade()
     {
         if (Level < 10)

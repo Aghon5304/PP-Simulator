@@ -78,14 +78,7 @@ public class MapVisualizer(Map map)
                 }
                 else
                 {
-                    if (creatures[0] is Orc)
-                    {
-                        Console.Write(IMappableConsole.Orc);
-                    }
-                    else
-                    {
-                        Console.Write(IMappableConsole.Elf);
-                    }
+                    Console.Write(creatures[0].Symbol);
                 }
                 Console.Write(Box.Vertical);
             }
