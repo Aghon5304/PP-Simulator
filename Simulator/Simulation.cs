@@ -10,9 +10,9 @@ public class Simulation
     public Map Map { get; }
 
     /// <summary>
-    /// Creatures moving on the map.
+    /// IMappables moving on the map.
     /// </summary>
-    public List<Creature> Creatures { get; }
+    public List<IMappable> IMappables { get; }
 
     /// <summary>
     /// Starting positions of creatures.
@@ -35,18 +35,18 @@ public class Simulation
     public bool Finished = false;
 
     /// <summary>
-    /// Creature which will be moving current turn.
+    /// IMappable which will be moving current turn.
     /// </summary>
-    public Creature CurrentCreature 
+    public IMappable CurrentIMappable 
     {
         get
         {
-            return Creatures[_currentCreature];
+            return IMappables[_currentIMappable];
         }
     }
 
     private int _currentMove { get; set; } = 0;
-    private int _currentCreature { get; set; } = 0;
+    private int _currentIMappable { get; set; } = 0;
 
     /// <summary>
     /// Lowercase name of direction which will be used in current turn.
@@ -58,7 +58,7 @@ public class Simulation
             return Moves[_currentMove].ToString().ToLower();
         }
     }
-    private Creature _temporaryCreature;
+    private IMappable _temporaryIMappable;
     /// <summary>
     /// Simulation constructor.
     /// Throw errors:
@@ -66,7 +66,7 @@ public class Simulation
     /// if number of creatures differs from 
     /// number of starting positions.
     /// </summary>
-    public Simulation(Map map, List<Creature> creatures,
+    public Simulation(Map map, List<IMappable> creatures,
         List<Point> positions, string moves)
     { 
         Map = map;
@@ -76,7 +76,7 @@ public class Simulation
         }
         else
         {
-            Creatures = creatures;
+            IMappables = creatures;
         }
         if (creatures.Count != positions.Count)
         {
@@ -88,9 +88,9 @@ public class Simulation
         }
         for (int i = 0; i < creatures.Count; i++)
         {
-            _temporaryCreature = Creatures[i];
-            _temporaryCreature.InitMapAndPosition(map, Positions[i]);
-            Creatures[i] = _temporaryCreature;
+            _temporaryIMappable = IMappables[i];
+            _temporaryIMappable.InitMapAndPosition(map, Positions[i]);
+            IMappables[i] = _temporaryIMappable;
         }
         Moves = moves;
         MovesList = DirectionParser.Parse(moves);
@@ -108,17 +108,17 @@ public class Simulation
         }
         else
         {
-            Creatures[_currentCreature].Go(MovesList[_currentMove]);
+            IMappables[_currentIMappable].Go(MovesList[_currentMove]);
 
-            _currentCreature++;
+            _currentIMappable++;
             _currentMove++;
             if (_currentMove >= MovesList.Length)
             {
                 Finished = true;
             }
-            if (_currentCreature >= Creatures.Count)
+            if (_currentIMappable >= IMappables.Count)
             {
-                _currentCreature = 0;
+                _currentIMappable = 0;
             }
         }
     }

@@ -1,6 +1,6 @@
 ﻿namespace SimConsole;
 
-internal class CreatureConsole
+internal class IMappableConsole
 {
     public const char
     Orc = 'O',

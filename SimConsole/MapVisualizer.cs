@@ -70,21 +70,21 @@ public class MapVisualizer(Map map)
                 var creatures = Map.At(x, y);
                 if (creatures == null)
                 {
-                    Console.Write(CreatureConsole.Null);
+                    Console.Write(IMappableConsole.Null);
                 }
                 else if (creatures.Count != 1)
                 {
-                    Console.Write(CreatureConsole.Wiele);
+                    Console.Write(IMappableConsole.Wiele);
                 }
                 else
                 {
                     if (creatures[0] is Orc)
                     {
-                        Console.Write(CreatureConsole.Orc);
+                        Console.Write(IMappableConsole.Orc);
                     }
                     else
                     {
-                        Console.Write(CreatureConsole.Elf);
+                        Console.Write(IMappableConsole.Elf);
                     }
                 }
                 Console.Write(Box.Vertical);

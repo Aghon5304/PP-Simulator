@@ -5,23 +5,23 @@ namespace Simulator.Maps;
 public abstract class SmallMap : Map
 {
 
-    public List<Creature>?[,] _fields;
+    public List<IMappable>?[,] _fields;
 
     protected SmallMap(int sizeX, int sizeY) : base(sizeX, sizeY)
     {
         if (sizeX > 20) throw new ArgumentOutOfRangeException(nameof(sizeX), "Too wide");
         if (sizeY > 20) throw new ArgumentOutOfRangeException(nameof(sizeY), "Too high");
-        _fields = new List<Creature>?[sizeX, sizeY];
+        _fields = new List<IMappable>?[sizeX, sizeY];
     }
-    public override List<Creature>? At(int x, int y)
+    public override List<IMappable>? At(int x, int y)
     {
         return _fields[x, y];
     }
-    public List<Creature>? At(Point point)
+    public List<IMappable>? At(Point point)
     {
        return At(point.X, point.Y);
     }
-    public override void Add(Creature creature, Point position)
+    public override void Add(IMappable creature, Point position)
     {
 
         if (creature == null)
@@ -36,12 +36,12 @@ public abstract class SmallMap : Map
         {
             if (_fields[position.X, position.Y] is null)
             {
-                _fields[position.X, position.Y] = new List<Creature>();
+                _fields[position.X, position.Y] = new List<IMappable>();
             }    
             _fields[position.X, position.Y].Add(creature);
         }
     }
-    public override void Remove(Creature creature, Point position)
+    public override void Remove(IMappable creature, Point position)
     {
         if (creature == null)
         {
