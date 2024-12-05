@@ -8,107 +8,78 @@ public class MapVisualizer(Map map)
 
     public void Draw()
     {
-        for (int y = 0; y < Map.SizeY; y++)
+        string Top = "";
+        string Mid = "";
+        string Bottom = "";
+        for (int x = 0; x <= 2 * Map.SizeX; x++)
         {
-            if (y == 0)
+            if (x == 0)
             {
-                for (int x = 0; x <= 2*Map.SizeX; x++)
+                Top +=Box.TopLeft;
+                Mid += Box.MidLeft;
+                Bottom += Box.BottomLeft;
+            }
+            else if (x == 2 * Map.SizeX)
+            {
+                Top += Box.TopRight;
+                Mid += Box.MidRight;
+                Bottom += Box.BottomRight;
+            }
+            else
+            {
+                if (x % 2 == 0)
                 {
-                    if (x == 0)
-                    {
-                        Console.Write(Box.TopLeft);
-                    }
-                    else if (x == 2 * Map.SizeX)
-                    {
-                        Console.Write(Box.TopRight);
-                    }
-                    else
-                    {
-                        if (x % 2 == 0)
-                        {
-                            Console.Write(Box.TopMid);
-                        }
-                        else
-                        {
-                            Console.Write(Box.Horizontal);
-                        }
-                    }
+                    Top+=Box.TopMid;
+                    Mid += Box.Cross;
+                    Bottom += Box.BottomMid;
                 }
+                else
+                {
+                    Top += Box.Horizontal;
+                    Mid += Box.Horizontal;
+                    Bottom += Box.Horizontal;
+                }
+            }
+        }
+        string Ekran = "";
+        for (int y = Map.SizeY-1; y >= 0; y--)
+        {
+            if (y == Map.SizeY-1)
+            {
+                Ekran += Top;
             }
             else 
             {
-                for (int x = 0; x <= 2 * Map.SizeX; x++)
-                {
-                    if (x == 0)
-                    {
-                        Console.Write(Box.MidLeft);
-                    }
-                    else if (x == 2 * Map.SizeX)
-                    {
-                        Console.Write(Box.MidRight);
-                    }
-                    else
-                    {
-                        if (x % 2 == 0)
-                        {
-                            Console.Write(Box.Cross);
-                        }
-                        else
-                        {
-                            Console.Write(Box.Horizontal);
-                        }
-                    }
-                }
+                Ekran += Mid;
             }
-            Console.WriteLine();
+                Ekran +="\n";
             for (int x = 0; x < Map.SizeX; x++)
             {
                 if (x == 0)
                 {
-                    Console.Write(Box.Vertical);
+                    Ekran+=Box.Vertical;
                 }
                 var creatures = Map.At(x, y);
                 if (creatures == null)
                 {
-                    Console.Write(IMappableConsole.Null);
+                    Ekran+=IMappableConsole.Null;
                 }
                 else if (creatures.Count != 1)
                 {
-                    Console.Write(IMappableConsole.Wiele);
+                    Ekran+=IMappableConsole.Wiele;
                 }
                 else
                 {
-                    Console.Write(creatures[0].Symbol);
+                    Ekran += creatures[0].Symbol;
                 }
-                Console.Write(Box.Vertical);
+                Ekran += Box.Vertical;
             }
-            Console.WriteLine();
-            if (y == Map.SizeY - 1)
+            Ekran += "\n";
+            if (y == 0)
             {
-                for (int x = 0; x <= 2 * Map.SizeX; x++)
-                {
-                    if (x == 0)
-                    {
-                        Console.Write(Box.BottomLeft);
-                    }
-                    else if (x == 2 * Map.SizeX)
-                    {
-                        Console.Write(Box.BottomRight);
-                    }
-                    else
-                    {
-                        if (x % 2 == 0)
-                        {
-                            Console.Write(Box.BottomMid);
-                        }
-                        else
-                        {
-                            Console.Write(Box.Horizontal);
-                        }
-                    }
-                }
+                Ekran += Bottom;
             }
         }
-
+        Console.WriteLine(Ekran);
     }
 }

@@ -20,9 +20,9 @@ public class Animals : IMappable
 
 
 
-    public Map? Map { get; private set; }
+    public virtual Map? Map { get; protected set; }
 
-    public Point Position { get; private set; }
+    public virtual Point Position { get; protected set; }
 
     public virtual char Symbol { get; init; } = 'A';
 
@@ -35,7 +35,7 @@ public class Animals : IMappable
         return $"{GetType().Name.ToUpper()}: {Info}";
     }
 
-    public void Go(Directions.Direction Direction)
+    public virtual void Go(Directions.Direction Direction)
     {
         if (Map != null)
         {
