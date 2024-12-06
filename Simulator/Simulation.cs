@@ -96,6 +96,22 @@ public class Simulation
         MovesList = DirectionParser.Parse(moves);
     }
 
+    public Directions.Direction CurrentMove()
+    {
+        return MovesList[_currentMove];
+    }
+    public IMappable CurrentCreature()
+    {
+        return IMappables[_currentIMappable];
+    }
+    public int CurrentMoveNumber()
+    {
+        return _currentMove;
+    }
+
+
+
+
     /// <summary>
     /// Makes one move of current creature in current direction.
     /// Throw error if simulation is finished.
@@ -108,7 +124,7 @@ public class Simulation
         }
         else
         {
-            IMappables[_currentIMappable].Go(MovesList[_currentMove]);
+            CurrentCreature().Go(CurrentMove());
 
             _currentIMappable++;
             _currentMove++;

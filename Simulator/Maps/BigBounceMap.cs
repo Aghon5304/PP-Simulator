@@ -3,7 +3,7 @@ namespace Simulator.Maps;
 
 public class BigBounceMap(int sizeX, int sizeY) : BigMap(sizeX, sizeY)
 {
-    public Direction Bounce(Direction d)
+    public static Direction Bounce(Direction d)
     {
         if (d == Direction.Up) return Direction.Down;
         if (d == Direction.Down) return Direction.Up;

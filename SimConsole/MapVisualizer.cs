@@ -6,7 +6,7 @@ public class MapVisualizer(Map map)
 {
     public Map Map { get; } = map;
 
-    public void Draw()
+    public string Draw()
     {
         string Top = "";
         string Mid = "";
@@ -80,6 +80,6 @@ public class MapVisualizer(Map map)
                 Ekran += Bottom;
             }
         }
-        Console.WriteLine(Ekran);
+        return Ekran;
     }
 }

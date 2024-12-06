@@ -11,7 +11,7 @@ public abstract class Creature(string name = "Unknown", int level = 1) : IMappab
     {
         if (map == null)
         {
-            throw new ArgumentNullException("Map is null");
+            throw new ArgumentNullException(nameof(map),"Map is null");
         }
         else
         {

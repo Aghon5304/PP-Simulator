@@ -12,7 +12,7 @@ public class Birds : Animals
     {
         if (map == null)
         {
-            throw new ArgumentNullException("Map is null");
+            throw new ArgumentNullException(nameof(map), "Map is null");
         }
         else
         {
