@@ -29,5 +29,14 @@ public class SimulationHistory
                 Symbols = _simulation.Symbols
             });
         }
+        else
+        {
+            TurnLogs.Add(new SimulationTurnLog
+            {
+                Mappable = _simulation.CurrentMove().ToString(),
+                Move = _simulation.CurrentCreature().ToString(),
+                Symbols = _simulation.Symbols
+            });
+        }
     }
 }
