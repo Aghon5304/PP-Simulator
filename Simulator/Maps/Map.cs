@@ -8,24 +8,83 @@ namespace Simulator.Maps;
 /// </summary>
 public abstract class Map
 {
+    public Dictionary<Point, List<IMappable>> _fields;
     protected Map(int sizeX, int sizeY)
     {
         if (sizeX < 5) throw new ArgumentOutOfRangeException(nameof(sizeX), "Too narrow");
         if (sizeY < 5) throw new ArgumentOutOfRangeException(nameof(sizeY), "Too short");
-        SizeX = sizeX;
-        SizeY = sizeY;
+        _fields = new Dictionary<Point, List<IMappable>>();
     }
     public int SizeX { get; }
     public int SizeY { get; }
 
-    public abstract void Add(IMappable creature, Point position);
-    public abstract void Remove(IMappable creature, Point position);
+    public List<IMappable>? At(int x, int y)
+    {
+        var point = new Point(x, y);
+        if (_fields.ContainsKey(point))
+        {
+            return _fields[point];
+        }
+        else
+        {
+            return null;
+        }
+    }
+    public List<IMappable>? At(Point point)
+    {
+        return At(point.X, point.Y);
+    }
+    public void Add(IMappable creature, Point position)
+    {
+        if (creature == null)
+        {
+            throw new ArgumentNullException("Nie można dodać creature ponieważ ma wartość Null");
+        }
+        else if (position.X < 0 || position.Y < 0 || position.X >= SizeX || position.Y >= SizeY)
+        {
+            throw new ArgumentOutOfRangeException("Position is out of bounds");
+        }
+        else
+        {
+            if (!_fields.ContainsKey(position))
+            {
+                _fields[position] = new List<IMappable>();
+            }
+            _fields[position].Add(creature);
+        }
+    }
+    public void Remove(IMappable creature, Point position)
+    {
+        if (creature == null)
+        {
+            throw new ArgumentNullException("Nie można dodać creature ponieważ ma wartość Null");
+        }
+        else if (position.X < 0 || position.Y < 0 || position.X >= SizeX || position.Y >= SizeY)
+        {
+            throw new ArgumentOutOfRangeException("Position is out of bounds");
+        }
+        else if (!_fields.ContainsKey(position))
+        {
+            throw new ArgumentNullException("Position is empty ");
+        }
+        else if (!_fields[position].Contains(creature))
+        {
+            throw new ArgumentException("No desired creature at position");
+        }
+        else
+        {
+            _fields[position].Remove(creature);
+            if (_fields[position].Count == 0)
+            {
+                _fields.Remove(position);
+            }
+        }
+    }
     public virtual void Move(IMappable creature, Point point)
     {
         Remove(creature, creature.Position);
         Add(creature, point);
     }
-    public abstract List<IMappable>? At(int x, int y);
 
     /// <summary>
     /// Check if give point belongs to the map.
