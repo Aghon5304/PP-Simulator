@@ -9,14 +9,16 @@ namespace Simulator.Maps;
 public abstract class Map
 {
     public Dictionary<Point, List<IMappable>> _fields;
+    public int SizeX { get; init; }
+    public int SizeY { get; init; }
     protected Map(int sizeX, int sizeY)
     {
         if (sizeX < 5) throw new ArgumentOutOfRangeException(nameof(sizeX), "Too narrow");
         if (sizeY < 5) throw new ArgumentOutOfRangeException(nameof(sizeY), "Too short");
+        SizeX = sizeX;
+        SizeY = sizeY;
         _fields = new Dictionary<Point, List<IMappable>>();
     }
-    public int SizeX { get; }
-    public int SizeY { get; }
 
     public List<IMappable>? At(int x, int y)
     {
