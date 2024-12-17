@@ -1,0 +1,12 @@
+﻿@page  
+@model WebView.Pages.historyModel  
+@{  
+   <h1>Turn: @Model.Tura</h1>
+    <div> @Html.Raw(Model.Ekran)</div>
+    <h2>Current Creature: @Model.CurrentCreature</h2>
+    <h2>Current Move: @Model.CurrentMove</h2>
+   <form method="post">  
+       <button type="submit" name="action" value="dec">Turn-</button>  
+       <button type="submit" name="action" value="inc">Turn+</button>  
+   </form>  
+}

@@ -4,7 +4,7 @@ using Simulator;
 
 namespace SimConsole;
 
-internal class LogVisulizer
+public class LogVisulizer
 {
     SimulationHistory Log { get; }
     public LogVisulizer(SimulationHistory log)
@@ -12,7 +12,7 @@ internal class LogVisulizer
         Log = log;
     }
 
-    public void Draw(int turnIndex)
+    public string Draw(int turnIndex)
     {
         string Top = "";
         string Mid = "";
@@ -65,7 +65,7 @@ internal class LogVisulizer
                 {
                     Ekran += Box.Vertical;
                 }
-                char creatures = Log.TurnLogs[turnIndex].Symbols[new Simulator.Point (x, y)];
+                char? creatures = Log.TurnLogs[turnIndex].Symbols.TryGetValue(new Simulator.Point(x, y), out var symbol) ? symbol : null;
                 if (creatures == null)
                 {
                     Ekran += IMappableConsole.Null;
@@ -82,6 +82,6 @@ internal class LogVisulizer
                 Ekran += Bottom;
             }
         }
-        Console.Write(Ekran);
+       return Ekran;
     }
 }

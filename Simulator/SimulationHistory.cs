@@ -6,13 +6,10 @@ public class SimulationHistory
     private Simulation _simulation { get; }
     public int SizeX { get; }
     public int SizeY { get; }
-    public List<SimulationTurnLog> TurnLogs { get; } = [];
-    // store starting positions at index 0
-
+    public List<SimulationTurnLog> TurnLogs { get; } = new List<SimulationTurnLog>();
     public SimulationHistory(Simulation simulation)
     {
-        _simulation = simulation ??
-            throw new ArgumentNullException(nameof(simulation));
+        _simulation = simulation;
         SizeX = _simulation.Map.SizeX;
         SizeY = _simulation.Map.SizeY;
         Run();
@@ -20,23 +17,27 @@ public class SimulationHistory
 
     private void Run()
     {
-        if (TurnLogs.Count == 0)
+        for (int i = 0; i < _simulation.Moves.Length; i++)
         {
-            TurnLogs.Add(new SimulationTurnLog
+            if (TurnLogs.Count == 0)
             {
-                Mappable = "Starting positions",
-                Move = "None",
-                Symbols = _simulation.Symbols
-            });
-        }
-        else
-        {
-            TurnLogs.Add(new SimulationTurnLog
+                TurnLogs.Add(new SimulationTurnLog
+                {
+                    Mappable = "Starting positions",
+                    Move = "None",
+                    Symbols = new Dictionary<Point, char>(_simulation.Symbols)
+                });
+            }
+            else
             {
-                Mappable = _simulation.CurrentMove().ToString(),
-                Move = _simulation.CurrentCreature().ToString(),
-                Symbols = _simulation.Symbols
-            });
+                TurnLogs.Add(new SimulationTurnLog
+                {
+                    Mappable = _simulation.CurrentCreature().ToString(),
+                    Move = _simulation.CurrentMove().ToString(),
+                    Symbols = new Dictionary<Point, char>(_simulation.CurrentSymbols())
+                });
+            }
+            _simulation.Turn();
         }
     }
 }

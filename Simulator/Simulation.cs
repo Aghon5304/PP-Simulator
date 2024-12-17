@@ -4,7 +4,7 @@ namespace Simulator;
 
 public class Simulation
 {
-    public Dictionary<Point, char> Symbols { get; set; }
+    public Dictionary<Point, char> Symbols { get; set; } = [];
     /// <summary>
     /// Simulation's map.
     /// </summary>
@@ -94,7 +94,7 @@ public class Simulation
             IMappables[i] = _temporaryIMappable;
         }
         for (int i = 0; i < creatures.Count; i++)
-        {
+        {   
             if (Symbols.ContainsKey(creatures[i].Position))
             {
                 Symbols[creatures[i].Position] = 'X';
@@ -120,7 +120,11 @@ public class Simulation
     {
         return _currentMove;
     }
-    
+    public Dictionary<Point, char> CurrentSymbols()
+    {
+        return Symbols;
+    }
+
 
 
 
@@ -147,6 +151,18 @@ public class Simulation
             if (_currentIMappable >= IMappables.Count)
             {
                 _currentIMappable = 0;
+            }
+            Symbols.Clear();
+            for (int i = 0; i < IMappables.Count; i++)
+            {
+                if (Symbols.ContainsKey(IMappables[i].Position))
+                {
+                    Symbols[IMappables[i].Position] = 'X';
+                }
+                else
+                {
+                    Symbols.Add(IMappables[i].Position, IMappables[i].Symbol);
+                }
             }
         }
     }

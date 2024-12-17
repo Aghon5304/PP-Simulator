@@ -42,7 +42,10 @@ public abstract class Creature(string name = "Unknown", int level = 1) : IMappab
 
     public abstract string Info { get; }
     public virtual char Symbol { get; init; } = 'C';
-
+    public override string ToString()
+    {
+        return $"{GetType().Name.ToUpper()}: {Info}";
+    }
     public void Upgrade()
     {
         if (Level < 10)
