@@ -22,7 +22,7 @@ public class Birds : Animals
         }
     }
     public override char Symbol { get; init; }
-    public Birds(string Description = "Unknown", uint Size = 3, Boolean canFly = true) : base(Description,Size)
+    public Birds(string Description = "Unknown", int Size = 3, Boolean canFly = true) : base(Description,Size)
     {
         CanFly = canFly;
         if (CanFly == false)
