@@ -1,10 +1,13 @@
-﻿using static Simulator.Directions;
+﻿using System.Text.Json.Serialization;
+using static Simulator.Directions;
 
 namespace Simulator;
 
 public readonly struct Point
 {
+    [JsonInclude]
     public readonly int X, Y;
+    [JsonConstructor]
     public Point(int x, int y) => (X, Y) = (x, y);
     public override string ToString() => $"({X}, {Y})";
 

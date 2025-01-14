@@ -1,7 +1,11 @@
 ﻿using static Simulator.Directions;
 using Simulator.Maps;
+using System.Text.Json.Serialization;
 
 namespace Simulator;
+[JsonPolymorphic]
+[JsonDerivedType(typeof(Elf), nameof(Elf))]
+[JsonDerivedType(typeof(Orc), nameof(Orc))]
 
 public abstract class Creature(string name = "Unknown", int level = 1) : IMappable
 {

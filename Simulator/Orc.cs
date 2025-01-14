@@ -1,4 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
+using System.Text.Json.Serialization;
 
 namespace Simulator;
 
@@ -6,7 +7,9 @@ public class Orc : Creature
 {
     private int _rage;
     private int _rageCount;
+	[JsonIgnore]
     public override char Symbol { get; init; } = 'O';
+    [JsonIgnore]
     public override int Power => (7 * Level) + 3 * Rage;
     public int Rage
     {
@@ -29,7 +32,8 @@ public class Orc : Creature
         Rage = rage;
     }
     public Orc() : base() { }
-    public override string Info
+	[JsonIgnore]
+	public override string Info
     {
         get {return $"{Name} [{Level}][{Rage}]"; }
     }
