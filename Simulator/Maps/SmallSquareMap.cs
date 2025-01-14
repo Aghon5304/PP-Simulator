@@ -1,11 +1,29 @@
 ﻿
 namespace Simulator.Maps;
 
-public class SmallSquareMap : SmallMap
+public class SmallSquareMap(int size) : SmallMap(size, size)
 {
-	public SmallSquareMap(int size) : base(size, size)
-	{
-		FNext = NextRules.WallNext;
-		FNextDiagonal = NextRules.WallNextDiagonal;
-	}
+    public override Point Next(Point p, Directions.Direction d)
+    {
+        if (Exist(p.Next(d)))
+        {
+            return p.Next(d);
+        }
+        else
+        {
+            return p;
+        }
+    }
+
+    public override Point NextDiagonal(Point p, Directions.Direction d)
+    {
+        if (Exist(p.NextDiagonal(d)))
+        {
+            return p.NextDiagonal(d);
+        }
+        else
+        {
+            return p;
+        }
+    }
 }

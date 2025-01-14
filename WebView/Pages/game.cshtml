@@ -1,0 +1,78 @@
+﻿@page "/game"
+@model WebView.Pages.gameModel
+@{
+    <div class="container">
+        <div class="left">
+            <table class="game-table">
+                @Html.Raw(Model.Tablica)
+            </table>
+        </div>
+        <div class="right">
+            <div>
+                @Html.Raw(Model.Player)
+            </div>
+            <form method="post">
+                <button type="submit" class="arrow-btn" id="Left" name="action" value="Left">Left</button>
+                <div>
+                    <button type="submit" class="arrow-btn" id="Up" name="action" value="Up">Up</button>
+                    <button type="submit" class="arrow-btn" id="Down" name="action" value="Down">Down</button>
+                </div>
+                <button type="submit" class="arrow-btn" id="Right" name="action" value="Right">Right</button>
+            </form>
+        </div>
+    </div>
+    <style>
+        .container {
+            display: flex;
+        }
+
+        .left {
+            flex: 0 0 80%;
+        }
+
+        .right {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .game-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .game-table tr, .game-table td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+            width: 5rem;
+            height: 5rem;
+            text-align: center;
+        }
+
+        .arrow-btn {
+            width: 50px;
+            height: 50px;
+            background-color: turquoise;
+            color: white;
+            font-size: 24px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: background-color 0.3s;
+        }
+
+        form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+}

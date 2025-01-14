@@ -1,13 +1,7 @@
 ﻿using System.Linq.Expressions;
-using System.Text.Json.Serialization;
 
 namespace Simulator.Maps;
 
-[JsonPolymorphic(TypeDiscriminatorPropertyName = "Type")]
-[JsonDerivedType(typeof(Elf), nameof(Elf))]
-[JsonDerivedType(typeof(Orc), nameof(Orc))]
-[JsonDerivedType(typeof(Animals), nameof(Animals))]
-[JsonDerivedType(typeof(Birds), nameof(Birds))]
 public interface IMappable
 {
     Map? Map { get; }
@@ -15,6 +9,14 @@ public interface IMappable
     string ToString();
     void Go(Directions.Direction Direction);
     void InitMapAndPosition(Map map, Point position);
-
+    int Health { get; }
+    int Power { get; }
     char Symbol { get; init; }
+    int Experience { get; }
+    int Level { get; }
+    bool IsDead { get; }
+    public void Heal(int amount);
+    public void Damage(IMappable damageDealer);
+    public void Upgrade();
+    public void LevelUp(int experience);
 }

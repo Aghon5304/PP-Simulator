@@ -1,66 +1,19 @@
 ﻿using Simulator.Maps;
 using static Simulator.Directions;
 using Simulator;
-using System.Text.Json;
-using System.Security.Cryptography;
-using System.Text.Json.Serialization;
 
 internal class Program
 {
     static void Main()
     {
-		//var v = new SmallSquareMap(5);
-		//var p = new Point(1, 0);
-		//Console.WriteLine( v.NextDiagonal(p,Direction.Down));
-		//Lab5a();
-		//Lab5b();
-		var jsonOptions = new JsonSerializerOptions { WriteIndented = true, ReferenceHandler = ReferenceHandler.Preserve };
-		//Orc o1 = new Orc("Gorbag", 3, 5);
-		////string json = JsonSerializer.Serialize(o1, jsonOptions);
+        var v = new SmallSquareMap(5);
+        var p = new Point(1, 0);
+        Console.WriteLine( v.NextDiagonal(p,Direction.Down));
+        Lab5a();
+        Lab5b();
+    }
 
-		//// Punkt się nie serializuje
-		//Point p1 = new(1, 2);
-		//      string json = JsonSerializer.Serialize(p1);
-		//      Point deserialization = JsonSerializer.Deserialize<Point>(json);
-		//Console.WriteLine(json);
-		//Console.WriteLine(deserialization);
-
-		//      using (FileStream fs = new("data.json", FileMode.Create))
-		//{
-		//	JsonSerializer.Serialize(fs, o1,jsonOptions);
-		//}
-		//using (FileStream fs = new("data.json", FileMode.Open))
-		//{
-		//	var o2 = JsonSerializer.Deserialize<Orc>(fs, jsonOptions);
-		//          Console.WriteLine(o2);
-		////}
-		//      Orc o1 = new Orc("Gorbag", 3, 5);
-		//      Orc o2 = new Orc("Gorogu", 2, 1);
-		//      List<Orc> list = [o1, o2, o1];
-		//      Console.WriteLine(list[0] == list[2]);
-		//      string json = JsonSerializer.Serialize(list, jsonOptions);
-		//      Console.WriteLine(json);
-		//      List<Orc> deserialized = JsonSerializer.Deserialize<List<Orc>>(json, jsonOptions)!;
-		//      Console.WriteLine(deserialized[0] == deserialized[2]);
-		var options = new JsonSerializerOptions { WriteIndented = true };
-
-		List<IMappable> mapables = [
-			new Orc("Gorbag", 3, 5),
-	new Elf("Elandor", 2, 7),
-	new Animals { Description = "Rasbbits", Size = 10 },
-	new Birds { Description = "Eagles", Size = 15 },
-	new Birds { Description = "Emu", Size = 8, CanFly = false }
-		];
-
-		string json = JsonSerializer.Serialize(mapables, options);
-		Console.WriteLine("\nJSON:");
-		Console.WriteLine(json);
-
-		List<IMappable> deserialized =
-			JsonSerializer.Deserialize<List<IMappable>>(json, options)!;
-	}
-
-	static void Lab5a()
+    static void Lab5a()
     {
         try
         {

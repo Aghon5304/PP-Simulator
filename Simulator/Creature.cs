@@ -1,11 +1,8 @@
 ﻿using static Simulator.Directions;
 using Simulator.Maps;
-using System.Text.Json.Serialization;
+using System.Drawing;
 
 namespace Simulator;
-[JsonPolymorphic]
-[JsonDerivedType(typeof(Elf), nameof(Elf))]
-[JsonDerivedType(typeof(Orc), nameof(Orc))]
 
 public abstract class Creature(string name = "Unknown", int level = 1) : IMappable
 {
@@ -43,9 +40,15 @@ public abstract class Creature(string name = "Unknown", int level = 1) : IMappab
     public int Level { get; set; } = Walidatory.Limiter(level, 1, 10);
 
     public abstract string Greeting();
-
+    public bool IsDead { get; private set; } = false;
     public abstract string Info { get; }
     public virtual char Symbol { get; init; } = 'C';
+
+    public virtual int MaxHealth { get; private set; }
+    public virtual int Health { get; private set; }
+
+    public int Experience { get; private set; }
+
     public override string ToString()
     {
         return $"{GetType().Name.ToUpper()}: {Info}";
@@ -53,7 +56,33 @@ public abstract class Creature(string name = "Unknown", int level = 1) : IMappab
     public void Upgrade()
     {
         if (Level < 10)
+        {
             Level++;
+        }
+        MaxHealth = 20*Level;
+        Health = MaxHealth;
+    }
+    public void Heal(int amount)
+    {
+        Health += amount;
+        if (Health > MaxHealth)
+        {
+            Health = MaxHealth;
+        }
+    }
+    public void Damage(IMappable damageDealer)
+    {
+        var amount = damageDealer.Power;
+        Health -= amount;
+        if (Health < 0)
+        {
+            Health = 0;
+        }
+        if (Health == 0)
+        {
+            IsDead = true;
+            damageDealer.Upgrade();
+        }
     }
     public void Go(Directions.Direction Direction)
     {
@@ -61,6 +90,15 @@ public abstract class Creature(string name = "Unknown", int level = 1) : IMappab
         {
             Map.Move(this, Map.Next(Position, Direction));
             Position = Map.Next(Position, Direction);
+        }
+    }
+
+    public void LevelUp(int experience)
+    {
+        Experience += experience;
+        for (int a = Experience / 10 - Level; a > 0; a--)
+        {
+            Upgrade();
         }
     }
 }
